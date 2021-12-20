@@ -1,4 +1,4 @@
-package com.example.burgerapp.ui.servicios;
+package com.example.burgerApp.ui.servicios;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,18 +8,14 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 
-import com.example.burgerapp.FormActivity;
-import com.example.burgerapp.R;
-import com.example.burgerapp.databinding.FragmentServiciosBinding;
+import com.example.burgerApp.FormActivity;
+import com.example.burgerApp.R;
+import com.example.burgerApp.databinding.FragmentServiciosBinding;
 
 public class ServiciosFragment extends Fragment {
 
@@ -27,6 +23,7 @@ public class ServiciosFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+
 
         binding = FragmentServiciosBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
@@ -55,9 +52,10 @@ public class ServiciosFragment extends Fragment {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case R.id.action_add:
-                Intent intent = new Intent(getContext(), FormActivity.class);//Desde donde estamos para donde vamos
-                intent.putExtra("name","SERVICIOS"); //El put extra se usa para pasar a la siguiente actividad
+                Intent intent = new Intent(getContext(), FormActivity.class);
+                intent.putExtra("name","SERVICIOS");
                 getActivity().startActivity(intent);
+                //Toast.makeText(getContext(), "Hola Servicios", Toast.LENGTH_SHORT).show();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

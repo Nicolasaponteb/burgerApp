@@ -1,6 +1,7 @@
-package com.example.burgerapp.ui.productos;
+package com.example.burgerApp.ui.productos;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -8,29 +9,46 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.GridView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 
-import com.example.burgerapp.FormActivity;
-import com.example.burgerapp.R;
-import com.example.burgerapp.databinding.FragmentProductosBinding;
+import com.example.burgerApp.FormActivity;
+import com.example.burgerApp.R;
+import com.example.burgerApp.adaptadores.ProductoAdapter;
+import com.example.burgerApp.casos_uso.CasoUsoProducto;
+import com.example.burgerApp.databinding.FragmentProductosBinding;
+import com.example.burgerApp.datos.DBHelper;
+import com.example.burgerApp.modelos.Producto;
+
+import java.util.ArrayList;
 
 public class ProductosFragment extends Fragment {
+    private String TABLE_NAME = "PRODUCTOS";
+    private CasoUsoProducto casoUsoProducto;
+    private GridView gridView;
+    private DBHelper dbHelper;
+    private ArrayList<Producto> productos;
 
-
-    private FragmentProductosBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        binding = FragmentProductosBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
+        View root = inflater.inflate(R.layout.fragment_productos, container,false);
+        try{
+            casoUsoProducto = new CasoUsoProducto();
+            dbHelper = new DBHelper(getContext());
+            Cursor cursor = dbHelper.getData(TABLE_NAME);
+            productos = casoUsoProducto.llenarListaProductos(cursor);
+            gridView = (GridView) root.findViewById(R.id.gridProductos);
+            ProductoAdapter productoAdapter = new ProductoAdapter(root.getContext(), productos);
+            gridView.setAdapter(productoAdapter);
+        }catch (Exception e){
+            Toast.makeText(getContext(), e.toString(), Toast.LENGTH_LONG).show();
+        }
 
         return root;
     }
@@ -38,7 +56,6 @@ public class ProductosFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        binding = null;
     }
 
     @Override
@@ -56,10 +73,10 @@ public class ProductosFragment extends Fragment {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case R.id.action_add:
-                Intent intent = new Intent(getContext(), FormActivity.class);//Desde donde estamos para donde vamos
-                intent.putExtra("name","PRODUCTOS"); //El put extra se usa para pasar a la siguiente actividad
+                Intent intent = new Intent(getContext(), FormActivity.class);
+                intent.putExtra("name","PRODUCTOS");
                 getActivity().startActivity(intent);
-                //Toast.makeText(getContext(), "Productos", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getContext(), "Hola Productos", Toast.LENGTH_SHORT).show();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
