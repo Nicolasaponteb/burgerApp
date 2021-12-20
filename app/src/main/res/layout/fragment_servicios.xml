@@ -1,22 +1,148 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".ui.servicios.ServiciosFragment">
 
-    <TextView
-        android:id="@+id/text_slideshow"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <!--    Codigo Caja 1-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingTop="25dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/imgP1"
+                    android:layout_width="250dp"
+                    android:layout_height="250dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/sitio" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tvNameP1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Sitio" />
+
+                    <TextView
+                        android:id="@+id/tvDescriptionP1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Pedido para comer en el local" />
+
+                    <TextView
+                        android:id="@+id/tvPriceP1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Sin costo" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!--    Codigo Caja 2-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingTop="25dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/imgP2"
+                    android:layout_width="250dp"
+                    android:layout_height="250dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/llevar" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tvNameP2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Llevar" />
+
+                    <TextView
+                        android:id="@+id/tvDescriptionP2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Pedido para llevar" />
+
+                    <TextView
+                        android:id="@+id/tvPriceP2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="500" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!--    Codigo Caja 3-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingTop="25dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/imgP3"
+                    android:layout_width="250dp"
+                    android:layout_height="250dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/domicilio" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tvNameP3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Domicilio" />
+
+                    <TextView
+                        android:id="@+id/tvDescriptionP3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Pedido a domicilio" />
+
+                    <TextView
+                        android:id="@+id/tvPriceP3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="3000" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+
+
+
+</LinearLayout>

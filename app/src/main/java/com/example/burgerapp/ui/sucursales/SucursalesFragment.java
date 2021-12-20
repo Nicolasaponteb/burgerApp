@@ -1,33 +1,61 @@
-package com.example.burgerapp.ui.sucursales;
+package com.example.burgerApp.ui.sucursales;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.GridView;
 import android.widget.Toast;
 
-import com.example.burgerapp.FormActivity;
-import com.example.burgerapp.R;
-import com.example.burgerapp.databinding.FragmentSucursalesBinding;
+import com.example.burgerApp.FormMapsActivity;
+import com.example.burgerApp.R;
+import com.example.burgerApp.adaptadores.SucursalAdapter;
+import com.example.burgerApp.casos_uso.CasoUsoSucursal;
+import com.example.burgerApp.databinding.FragmentSucursalesBinding;
+import com.example.burgerApp.datos.DBHelper;
+import com.example.burgerApp.modelos.Sucursal;
+
+import java.util.ArrayList;
+
 
 public class SucursalesFragment extends Fragment {
 
     private FragmentSucursalesBinding binding;
 
+    private String TABLE_NAME = "SUCURSALES";
+    private CasoUsoSucursal casoUsoSucursal;
+    private GridView gridView;
+    private DBHelper dbHelper;
+    private ArrayList<Sucursal> sucursales;
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        binding = FragmentSucursalesBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
+
+        View root = inflater.inflate(R.layout.fragment_sucursales, container,false);
+        try{
+            casoUsoSucursal = new CasoUsoSucursal();
+            dbHelper = new DBHelper(getContext());
+            Cursor cursor = dbHelper.getData(TABLE_NAME);
+            sucursales = casoUsoSucursal.llenarListaSucursales(cursor);
+            gridView = (GridView) root.findViewById(R.id.gridSucursal);
+            SucursalAdapter sucursalAdapter = new SucursalAdapter(root.getContext(), sucursales);
+            gridView.setAdapter(sucursalAdapter);
+        }catch (Exception e){
+            Toast.makeText(getContext(), e.toString(), Toast.LENGTH_LONG).show();
+            Log.w("Error ->>>", e.toString());
+        }
 
         return root;
     }
@@ -53,9 +81,14 @@ public class SucursalesFragment extends Fragment {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case R.id.action_add:
-                Intent intent = new Intent(getContext(), FormActivity.class);//Desde donde estamos para donde vamos
-                intent.putExtra("name","SUCURSALES"); //El put extra se usa para pasar a la siguiente actividad
-                getActivity().startActivity(intent);
+                try {
+                    Intent intent = new Intent(getContext(), FormMapsActivity.class);
+                    getActivity().startActivity(intent);
+                }catch (Exception e){
+                    Toast.makeText(getContext(), e.toString(), Toast.LENGTH_SHORT).show();
+                }
+
+                //Toast.makeText(getContext(), "Hola Sucursales", Toast.LENGTH_SHORT).show();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
